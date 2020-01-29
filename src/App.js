@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import findAllSolutions from './solver.js';
+import Board from './Board.js';
 import './App.css';
 
 const BOARD = [['h', 'i', 's'],['s', 'h', 'e'],['t', 'e', 'a']];
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <Board board={BOARD}/>
       <ul>
         {allSolutions.map((solution) => {return <li>{solution}</li>})}
       </ul>
