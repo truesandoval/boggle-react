@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import findAllSolutions from './solver.js';
 import Board from './Board.js';
+import GuessInput from './GuessInput.js';
 import './App.css';
 
 const BOARD = [['h', 'i', 's'],['s', 'h', 'e'],['t', 'e', 'a']];
@@ -18,9 +19,14 @@ function App() {
     setAllSolutions(tmpAllSolutions);
   }, []);
 
+  function correctAnswerFound(answer) {
+    console.log("New correct answer:" + answer);
+  }
+
   return (
     <div className="App">
       <Board board={BOARD}/>
+      <GuessInput allSolutions={allSolutions} correctAnswerCallback={(answer) => correctAnswerFound(answer)}/>
       <ul>
         {allSolutions.map((solution) => {return <li>{solution}</li>})}
       </ul>
