@@ -3,7 +3,9 @@ import findAllSolutions from './solver.js';
 import Board from './Board.js';
 import GuessInput from './GuessInput.js';
 import FoundSolutions from './FoundSolutions.js';
+import ToggleGameState from './ToggleGameState.js';
 import './App.css';
+import {GAME_STATE} from './game_state_enum.js';
 
 const BOARD = [['h', 'i', 's'],['s', 'h', 'e'],['t', 'e', 'a']];
 
@@ -11,6 +13,7 @@ function App() {
 
   const [allSolutions, setAllSolutions] = useState([]);
   const [foundSolutions, setFoundSolutions] = useState([]);
+  const [gameState, setGameState] = useState(GAME_STATE.BEFORE);
 
   // useEffect will trigger when the array items in the second argument are
   // updated. The array is empty, so this will run only when component is
@@ -28,11 +31,17 @@ function App() {
 
   return (
     <div className="App">
-      <Board board={BOARD}/>
-      <GuessInput allSolutions={allSolutions}
-                  foundSolutions={foundSolutions} 
-                  correctAnswerCallback={(answer) => correctAnswerFound(answer)}/>
-      <FoundSolutions words={foundSolutions} />
+      <ToggleGameState gameState={gameState}
+                       setGameState={(state) => setGameState(state)} />
+      { gameState === GAME_STATE.IN_PROGRESS &&
+        <div>
+          <Board board={BOARD} />
+          <GuessInput allSolutions={allSolutions}
+                      foundSolutions={foundSolutions}
+                      correctAnswerCallback={(answer) => correctAnswerFound(answer)}/>
+          <FoundSolutions words={foundSolutions} />
+        </div>
+      }
     </div>
   );
 }
