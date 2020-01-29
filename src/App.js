@@ -6,28 +6,28 @@ import FoundSolutions from './FoundSolutions.js';
 import ToggleGameState from './ToggleGameState.js';
 import './App.css';
 import {GAME_STATE} from './game_state_enum.js';
-
-const BOARD = [['h', 'i', 's'],['s', 'h', 'e'],['t', 'e', 'a']];
+import {RandomGrid} from './random_grid.js';
 
 function App() {
 
   const [allSolutions, setAllSolutions] = useState([]);
   const [foundSolutions, setFoundSolutions] = useState([]);
   const [gameState, setGameState] = useState(GAME_STATE.BEFORE);
+  const [grid, setGrid] = useState([]);
 
   // useEffect will trigger when the array items in the second argument are
-  // updated. The array is empty, so this will run only when component is
-  // initalized. We should only recompute all solutions if the board changes.
+  // updated so whenever grid is updated, we will recompute the solutions
   useEffect(() => {
     const wordList = require('./full-wordlist.json');
-    let tmpAllSolutions = findAllSolutions(BOARD, wordList.words);
+    let tmpAllSolutions = findAllSolutions(grid, wordList.words);
     setAllSolutions(tmpAllSolutions);
-  }, []);
+  }, [grid]);
 
   // This will run when gameState changes.
-  // If the game is ended, reset the found solutions to empty for the next game
+  // When a new game is started, generate a new random grid and reset solutions
   useEffect(() => {
-    if (gameState == GAME_STATE.ENDED) {
+    if (gameState === GAME_STATE.IN_PROGRESS) {
+      setGrid(RandomGrid());
       setFoundSolutions([]);
     }
   }, [gameState]);
@@ -43,7 +43,7 @@ function App() {
                        setGameState={(state) => setGameState(state)} />
       { gameState === GAME_STATE.IN_PROGRESS &&
         <div>
-          <Board board={BOARD} />
+          <Board board={grid} />
           <GuessInput allSolutions={allSolutions}
                       foundSolutions={foundSolutions}
                       correctAnswerCallback={(answer) => correctAnswerFound(answer)}/>
@@ -52,7 +52,7 @@ function App() {
       }
       { gameState === GAME_STATE.ENDED &&
         <div>
-          <Board board={BOARD} />
+          <Board board={grid} />
           <FoundSolutions headerText="All possible solutions" words={allSolutions} />
         </div>
       }
