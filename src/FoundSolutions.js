@@ -1,15 +1,15 @@
 import React from 'react';
 import './FoundSolutions.css';
 
-function FoundSolutions({words}) {
+function FoundSolutions({words, headerText}) {
 
   return (
     <div className="Found-solutions-list">
       {words.length > 0 &&
-        <h4>Solutions found: {words.length}</h4>
+        <h4>{headerText}: {words.length}</h4>
       }
       <ul>
-        {words.map((solution) => {return <li>{solution}</li>})}
+        {words.map((solution) => {return <li key={solution}>{solution}</li>})}
       </ul>
     </div>
   );

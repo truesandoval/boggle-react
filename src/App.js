@@ -24,6 +24,14 @@ function App() {
     setAllSolutions(tmpAllSolutions);
   }, []);
 
+  // This will run when gameState changes.
+  // If the game is ended, reset the found solutions to empty for the next game
+  useEffect(() => {
+    if (gameState == GAME_STATE.ENDED) {
+      setFoundSolutions([]);
+    }
+  }, [gameState]);
+
   function correctAnswerFound(answer) {
     console.log("New correct answer:" + answer);
     setFoundSolutions([...foundSolutions, answer]);
@@ -39,7 +47,13 @@ function App() {
           <GuessInput allSolutions={allSolutions}
                       foundSolutions={foundSolutions}
                       correctAnswerCallback={(answer) => correctAnswerFound(answer)}/>
-          <FoundSolutions words={foundSolutions} />
+          <FoundSolutions headerText="Solutions you've found" words={foundSolutions} />
+        </div>
+      }
+      { gameState === GAME_STATE.ENDED &&
+        <div>
+          <Board board={BOARD} />
+          <FoundSolutions headerText="All possible solutions" words={allSolutions} />
         </div>
       }
     </div>
