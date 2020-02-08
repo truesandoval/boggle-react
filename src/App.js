@@ -4,16 +4,31 @@ import Board from './Board.js';
 import GuessInput from './GuessInput.js';
 import FoundSolutions from './FoundSolutions.js';
 import ToggleGameState from './ToggleGameState.js';
+import LoginButton from './LoginButton.js';
+import firebase from 'firebase';
 import './App.css';
 import {GAME_STATE} from './game_state_enum.js';
 import {RandomGrid} from './random_grid.js';
 
 function App() {
-
+  console.log(firebase.auth());
+  const [user, setUser] = useState(null);
   const [allSolutions, setAllSolutions] = useState([]);
   const [foundSolutions, setFoundSolutions] = useState([]);
   const [gameState, setGameState] = useState(GAME_STATE.BEFORE);
   const [grid, setGrid] = useState([]);
+
+  // admin.auth().getUser(uid)
+  // .then(function(userRecord) {
+  //   // See the UserRecord reference doc for the contents of userRecord.
+  //   console.log('Successfully fetched user data:', userRecord.toJSON());
+
+  // })
+  // .catch(function(error) {
+  //   console.log('Error fetching user data:', error);
+  // });
+
+  
 
   // useEffect will trigger when the array items in the second argument are
   // updated so whenever grid is updated, we will recompute the solutions
@@ -39,7 +54,12 @@ function App() {
 
   return (
     <div className="App">
-      <ToggleGameState gameState={gameState}
+      <header className="App-header">
+      <LoginButton setUser={(user) => setUser(user)} />
+      {user != null &&
+	    <p>Welcome, {user.displayName} ({user.email})</p> 
+        } 
+        <ToggleGameState gameState={gameState}
                        setGameState={(state) => setGameState(state)} />
       { gameState === GAME_STATE.IN_PROGRESS &&
         <div>
@@ -56,6 +76,8 @@ function App() {
           <FoundSolutions headerText="All possible solutions" words={allSolutions} />
         </div>
       }
+      </header>
+      
     </div>
   );
 }

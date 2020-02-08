@@ -1,0 +1,42 @@
+[debug] [2020-02-08T05:03:23.464Z] ----------------------------------------------------------------------
+[debug] [2020-02-08T05:03:23.465Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2020-02-08T05:03:23.465Z] CLI Version:   7.12.1
+[debug] [2020-02-08T05:03:23.465Z] Platform:      darwin
+[debug] [2020-02-08T05:03:23.465Z] Node Version:  v13.6.0
+[debug] [2020-02-08T05:03:23.466Z] Time:          Fri Feb 07 2020 21:03:23 GMT-0800 (Pacific Standard Time)
+[debug] [2020-02-08T05:03:23.466Z] ----------------------------------------------------------------------
+[debug] [2020-02-08T05:03:23.466Z] 
+[debug] [2020-02-08T05:03:23.475Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-08T05:03:23.475Z] > authorizing via signed-in user
+[debug] [2020-02-08T05:03:23.475Z] [iam] checking project my-boggle-game for permissions ["firebase.projects.get"]
+[debug] [2020-02-08T05:03:23.476Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-02-08T05:03:23.476Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-02-08T05:03:23.664Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-08T05:03:23.672Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/my-boggle-game:testIamPermissions  
+
+[debug] [2020-02-08T05:03:23.861Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-08T05:03:23.862Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/my-boggle-game  
+ 
+[debug] [2020-02-08T05:03:24.091Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/trues/boggle-react'...
+[info] 
+[debug] [2020-02-08T05:03:24.094Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/my-boggle-game/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "13"
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2020-02-08T05:03:24.746Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/Users/trues/boggle-react/functions" for Cloud Functions...
+[debug] [2020-02-08T05:03:24.768Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-08T05:03:24.768Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-02-08T05:03:24.768Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-08T05:03:24.769Z] [worker-~diagnostic~-d24eb884-422e-425c-a863-760ff70488f7]: Assigning socketPath: /var/folders/x_/rf9jxwgx2ss4_lb1r6rxw00h00q9jh/T/fire_emu_59591.sock
+[debug] [2020-02-08T05:03:24.769Z] [worker-~diagnostic~-d24eb884-422e-425c-a863-760ff70488f7]: BUSY
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2020-02-08T05:03:24.960Z] [runtime-status] [59591] Functions runtime initialized. {"cwd":"/Users/trues/boggle-react/functions","node_version":"13.6.0"}
+[debug] [2020-02-08T05:03:24.960Z] [runtime-status] [59591] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-08T05:03:24.963Z] [runtime-status] [59591] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/trues/boggle-react/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-08T05:03:24.966Z] [runtime-status] [59591] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/trues/boggle-react/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-08T05:03:24.966Z] [runtime-status] [59591] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/trues/boggle-react/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-08T05:03:25.014Z] [worker-~diagnostic~-d24eb884-422e-425c-a863-760ff70488f7]: IDLE
