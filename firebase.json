@@ -13,12 +13,7 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "public": "public",
     "rewrites": [
       {
         "source": "**",
