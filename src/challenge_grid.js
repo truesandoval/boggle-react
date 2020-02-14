@@ -2,39 +2,43 @@ import firebase, {database} from 'firebase';
 import 'firebase/firestore'
 import React from 'react';
 
-export default function allGrids(){
+var charMap = {}; 
+
+export function LoadGrid() {
     const firebase = require('firebase');
     const db = firebase.firestore();
-
-    var charMap = {}; 
+    var challengeGrid = [];
     var docGrid = db.collection('challenges').doc('grids');
+
     docGrid.get().then(function(doc) {
         if (!doc.exists) {
             console.log('No such document!');
           } else {
             console.log('Document data:', doc.data());
+            charMap = doc.data();
           }
         })
         .catch(err => {
           console.log('Error getting document', err);
         });
-    var allGrids = [];
-    var grid = [];
+    var allChallengeGrids = [];
+    
 
   for (let challenge in charMap){
       let grid = charMap[challenge];
+      if(grid.length >=  25) {
         const SIZE = 5;
-        for (let row = 0; row < SIZE; row++) {
-          allGrids[row] = [];
-          for (let col = 0; col < SIZE; ++col) {
-            allGrids[row][col] = grid[SIZE * row + col];
-            if (allGrids[row][col] === "Q") {allGrids[row][col] = "Qu";}
-          }
-        }
-        allGrids.push(allGrids);
-        grid = [];
+        // for (let row = 0; row < SIZE; row++) {
+        //   challengeGrid[row] = [];
+        //   for (let col = 0; col < SIZE; ++col) {
+        //     challengeGrid[row][col] = challengeGrid[SIZE * row + col];
+        //     if (challengeGrid[row][col] === "Q") {challengeGrid[row][col] = "Qu";}
+        //   }
+        // }
+        allChallengeGrids.push(challengeGrid);
+        challengeGrid = [];
     }
-    console.log(allGrids);
-      return allGrids;
+}
+      return allChallengeGrids;
     }
 

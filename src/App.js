@@ -11,33 +11,21 @@ import './App.css';
 import {GAME_STATE} from './game_state_enum.js';
 import {CHALLENGE_STATE} from './challenge_state_enum';
 import {RandomGrid} from './random_grid.js';
-import AllGrids from './challenge_grid';
-// import {allHighestScores} from './Highscore.js';
+import {LoadGrid} from './challenge_grid';
+
+//Raymond and Kelsi helped me on this assignment 
 
 function App() {
-  // console.log(firebase.auth());
   const [user, setUser] = useState(null);
   const [allSolutions, setAllSolutions] = useState([]);
   const [foundSolutions, setFoundSolutions] = useState([]);
   const [gameState, setGameState] = useState(GAME_STATE.BEFORE);
   const [grid, setGrid] = useState([]);
   const [challengeGame, setChallengeGame] = useState(CHALLENGE_STATE.GAME_1);
-  // const [highestScoreText, setHighestScoreText] = useState("");
 
-  var ChallengeGrid =  AllGrids();
-  // var Highscore =  allHighestScores();
 
-  // admin.auth().getUser(uid)
-  // .then(function(userRecord) {
-  //   // See the UserRecord reference doc for the contents of userRecord.
-  //   console.log('Successfully fetched user data:', userRecord.toJSON());
+  var ChallengeGrid =  LoadGrid();
 
-  // })
-  // .catch(function(error) {
-  //   console.log('Error fetching user data:', error);
-  // });
-
-  
 
   // useEffect will trigger when the array items in the second argument are
   // updated so whenever grid is updated, we will recompute the solutions
@@ -57,12 +45,11 @@ function App() {
     else if (gameState === GAME_STATE.CHALLENGE_MODE) {
       if(challengeGame === CHALLENGE_STATE.GAME_1){
         setGrid(ChallengeGrid[0]);
-        // setHighestScoreText(Highscore[0]);
-        // console.log(highestScoreText);
+        setGameState(GAME_STATE.IN_PROGRESS);
       }
       else if(challengeGame === CHALLENGE_STATE.GAME_2){
         setGrid(ChallengeGrid[1]);
-        // setHighestScoreText(Highscore[1]);
+        setGameState(GAME_STATE.IN_PROGRESS);
       }
       setFoundSolutions([]);
     }

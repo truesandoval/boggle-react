@@ -66,8 +66,8 @@ Solver.prototype.recursiveSolve = function(row, col, parentNode) {
   const currentTile = this.grid[row][col];
   const currentNode = parentNode.children[currentTile];
   if (currentNode == undefined) return;  // '==' matches null or undef
-  console.log("currentNode");
-  console.log(currentNode);
+  // console.log("currentNode");
+  // console.log(currentNode);
 
   if (currentNode.isWord) {
     this.solutions.add(currentNode.asFullWord());

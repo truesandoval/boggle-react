@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Button from "@material-ui/core/Button";
-import LoginButton from './LoginButton.js';
 import {GAME_STATE} from './game_state_enum.js';
 import {CHALLENGE_STATE} from './challenge_state_enum.js';
 import './ToggleGameState.css';
@@ -21,7 +20,7 @@ export default function ToggleGameState({gameState, setGameState, challengeGame,
       if(challengeGame === CHALLENGE_STATE.GAME_1){
         setChallengeGame(CHALLENGE_STATE.GAME_1);
       }
-      else if(challengeGame === CHALLENGE_STATE.GAME_2){
+    else if(challengeGame === CHALLENGE_STATE.GAME_2){
         setChallengeGame(CHALLENGE_STATE.GAME_2);
       }
       setGameState(GAME_STATE.CHALLENGE_MODE);
@@ -42,7 +41,7 @@ export default function ToggleGameState({gameState, setGameState, challengeGame,
 
   }
 
-  function ChallengesDropdownMenu() {
+  function ChallengeMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = event => {
@@ -74,11 +73,11 @@ export default function ToggleGameState({gameState, setGameState, challengeGame,
 
   return (
     <div className="Toggle-game-state">
-      <Button onClick={() => updateGameState(false)} >
-        {buttonText}
-      </Button>
-      <ChallengesDropdownMenu/>
-    </div>
+    <Button onClick={() => updateGameState(false)} >
+      {buttonText}
+    </Button>
+    <ChallengeMenu/>
+  </div>
   );
 }
 
