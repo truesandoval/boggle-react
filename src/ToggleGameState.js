@@ -5,8 +5,9 @@ import {CHALLENGE_STATE} from './challenge_state_enum.js';
 import './ToggleGameState.css';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import {LoadGrid} from './challenge_grid';
 
-
+var ChallengeGrid =  LoadGrid();
 export default function ToggleGameState({gameState, setGameState, challengeGame, setChallengeGame}) {
 
   const [buttonText, setButtonText] = useState("Start a new game!");
@@ -19,6 +20,7 @@ export default function ToggleGameState({gameState, setGameState, challengeGame,
     else if (challengeMode && (gameState === GAME_STATE.BEFORE || gameState === GAME_STATE.ENDED) ) {
       if(challengeGame === CHALLENGE_STATE.GAME_1){
         setChallengeGame(CHALLENGE_STATE.GAME_1);
+        // setGrid(ChallengeGrid[0]);
       }
     else if(challengeGame === CHALLENGE_STATE.GAME_2){
         setChallengeGame(CHALLENGE_STATE.GAME_2);

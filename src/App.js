@@ -5,7 +5,7 @@ import GuessInput from './GuessInput.js';
 import FoundSolutions from './FoundSolutions.js';
 import ToggleGameState from './ToggleGameState.js';
 import LoginButton from './LoginButton.js';
-import UserResponses from './UserResponses';
+import Highscore from './Highscore';
 import firebase, {database} from 'firebase';
 import './App.css';
 import {GAME_STATE} from './game_state_enum.js';
@@ -22,7 +22,7 @@ function App() {
   const [gameState, setGameState] = useState(GAME_STATE.BEFORE);
   const [grid, setGrid] = useState([]);
   const [challengeGame, setChallengeGame] = useState(CHALLENGE_STATE.GAME_1);
-
+  const db = firebase.firestore();
 
   var ChallengeGrid =  LoadGrid();
 
@@ -38,6 +38,7 @@ function App() {
   // This will run when gameState changes.
   // When a new game is started, generate a new random grid and reset solutions
   useEffect(() => {
+    console.log(ChallengeGrid);
     if (gameState === GAME_STATE.IN_PROGRESS) {
       setGrid(RandomGrid());
       setFoundSolutions([]);
@@ -60,9 +61,6 @@ function App() {
     setFoundSolutions([...foundSolutions, answer]);
   }
 
-  const firebase = require('firebase');
-  const db = firebase.firestore();
-
   return (
     <div className="App">
       <header className="App-header">
@@ -70,19 +68,22 @@ function App() {
       {user != null &&
 	    <p>Welcome, {user.displayName} ({user.email})</p> 
         } 
-       <ToggleGameState gameState={gameState}
+  <ToggleGameState gameState={gameState}
                        setGameState={(state) => setGameState(state)}
                        challengeGame={challengeGame}
                        setChallengeGame={(challengeGame) => setChallengeGame(challengeGame)} />
-
-      { gameState === GAME_STATE.IN_PROGRESS &&
+      { (gameState === GAME_STATE.IN_PROGRESS || gameState === GAME_STATE.CHALLENGE_MODE) &&
         <div>
           <Board board={grid} />
           <GuessInput allSolutions={allSolutions}
                       foundSolutions={foundSolutions}
                       correctAnswerCallback={(answer) => correctAnswerFound(answer)}/>
-          <FoundSolutions headerText="Solutions you've found" words={foundSolutions} user={user}/>
-        </div>
+          <FoundSolutions headerText="Solutions you've found" words={foundSolutions} />
+          <div className="App-highscore">
+          Challenge Highscore: <Highscore/>
+          </div>
+          <p align="left"></p>
+          </div>
       }
       { gameState === GAME_STATE.ENDED &&
         <div>
@@ -91,7 +92,6 @@ function App() {
         </div>
       }
       </header>
-      
     </div>
   );
 }
